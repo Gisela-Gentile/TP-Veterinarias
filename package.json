@@ -1,0 +1,23 @@
+{
+  "name": "tp-veterinarias",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gisela-Gentile/TP-Veterinarias.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gisela-Gentile/TP-Veterinarias/issues"
+  },
+  "homepage": "https://github.com/Gisela-Gentile/TP-Veterinarias#readme",
+  "dependencies": {
+    "@types/node": "^18.11.9",
+    "readline-sync": "^1.4.10"
+  }
+}
