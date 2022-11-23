@@ -7,7 +7,11 @@ interface DatoRed{
     altaVeterinaria():void;
     modificarVeterinaria(posicion:number):void;
     bajaVeterinaria(posicion: number):void;
+    altaProveedor():void;
+    modificarProveedor(posicion:number):void;
+    bajaProveedor(posicion: number):void;
 }
+
 
 export default class RedVeterinaria implements DatoRed{
     private id:number;
@@ -17,10 +21,10 @@ export default class RedVeterinaria implements DatoRed{
     private listaSucursales: Array<Veterinaria>;
 
 
-    public constructor(id:number, nombre:string, direccion:string, listaProveedores: Array<Proveedor>,listaSucursales: Array<Veterinaria>){
-        this.id= id;
-        this.nombre=nombre;
-        this.direccion= direccion;
+    public constructor(listaProveedores: Array<Proveedor>,listaSucursales: Array<Veterinaria>){
+        this.id= 1;
+        this.nombre= "The Pest";
+        this.direccion= "San Martin 623";
         this.listaProveedores= listaProveedores;
         this.listaSucursales= listaSucursales;
     }
@@ -40,32 +44,27 @@ export default class RedVeterinaria implements DatoRed{
     public getlistaSucursales(): Array<Veterinaria>{
         return this.listaSucursales
     }
-    // funcion dar alta veterinarias
+    // Método dar alta una veterinaria
  public altaVeterinaria(): void{
 
-    let idVeterinaria:number = crearNumeroAleatoreo(this.listaSucursales.length)
+    let idVeterinaria:number = crearNumeroAleatoreo(10000);
     let i:number=0;
-    let aux:number=0;
     for ( i=0; i< this.listaSucursales.length; i++) {
-        if ( this.listaSucursales[i].getidVeterinaria() === idVeterinaria){
-            aux= crearNumeroAleatoreo(this.listaSucursales.length);
-            i=0;
-                } else{
-            aux=idVeterinaria;
+       
+        if (this.listaSucursales[i].getidVeterinaria() === idVeterinaria){
+         idVeterinaria= crearNumeroAleatoreo(10000);
+        i=0;
         }
-        idVeterinaria=aux;
-            }    
+           } 
     let nombre:string = ReadlineSync.question("Ingrese el nombre: ");
-    let direccion:string = ReadlineSync.question("Ingrese la direccion: ");
-              
+    let direccion:string = ReadlineSync.question("Ingrese la direccion: ");           
 let nuevaVeterinaria : Veterinaria = new Veterinaria(idVeterinaria, nombre,direccion);
     ​
-        //inserto el elemento de tipo Veterinaria en el arreglo recibido
-        
+        //inserto el elemento de tipo Veterinaria en el arreglo recibido        
         this.listaSucursales.push(nuevaVeterinaria);
             }
         
-            //funcion para "borrar" una sucursal
+    //Método para "borrar" una sucursal
 ​
 public bajaVeterinaria(posicion: number) : void {​
     
@@ -73,24 +72,71 @@ public bajaVeterinaria(posicion: number) : void {​
     
   } 
          
-    //funcion para modificar datos de una veterinaria
+    //Método para modificar datos de una veterinaria
 ​
 public modificarVeterinaria(posicion:number): void{
    
-    if (posicion === this.listaSucursales[posicion].getidVeterinaria()){
         let idVeterinaria:number= this.listaSucursales[posicion].getidVeterinaria();
         let nombre:string = ReadlineSync.question("Ingrese el nombre nuevo: ");
         let direccion:string = ReadlineSync.question("Ingrese la nueva direccion: ");
    ​
-    let veterinariaActualizada : Veterinaria = new Veterinaria((Number(idVeterinaria)),nombre, direccion);
+    let veterinariaActualizada : Veterinaria = new Veterinaria(idVeterinaria,nombre, direccion);
 ​
     delete this.listaSucursales[posicion];
-    this.listaSucursales[posicion] = veterinariaActualizada;}
-}
-        
+    this.listaSucursales[posicion] = veterinariaActualizada;
+}     
+    //método mostrar una veterinaria
     public mostrarUnaVeterinaria( posicion:number):void{
 
         console.log(this.listaSucursales[posicion]);
+            }
+
+    // método dar alta un proveedor
+ public altaProveedor(): void{
+
+    let idProveedor:number = crearNumeroAleatoreo(10000)
+    let i:number=0;
+    for ( i=0; i< this.listaProveedores.length; i++) {
+        if ( this.listaProveedores[i].getidProveedor() === idProveedor){
+            idProveedor= crearNumeroAleatoreo(10000);
+            i=0;
+                }
+        } 
+     
+    let nombre:string = ReadlineSync.question("Ingrese el nombre: ");
+    let telefono:number = ReadlineSync.questionInt("Ingrese el telefono: ");
+              
+let nuevoProveedor: Proveedor = new Proveedor(idProveedor,nombre,telefono);
+    ​
+        //inserto el elemento de tipo Proveedor en el arreglo recibido
+        
+        this.listaProveedores.push(nuevoProveedor);
+            }
+        
+    //método para "borrar" un proveedor
+​
+public bajaProveedor(posicion: number) : void {​
+    
+          this.listaProveedores.splice(posicion,1);
+    
+  }          
+    //método para modificar datos de un proveedor
+​
+public modificarProveedor(posicion:number): void{
+   
+        let idProveedor:number= this.listaProveedores[posicion].getidProveedor();
+        let nombre:string = ReadlineSync.question("Ingrese el nombre nuevo: ");
+        let telefono:number = ReadlineSync.questionInt("Ingrese el nuevo telefono: ");
+   ​
+    let proveedorActualizado : Proveedor = new Proveedor (idProveedor,nombre,telefono);
+​
+    delete this.listaProveedores[posicion];
+    this.listaProveedores[posicion] = proveedorActualizado;
+}
+     //Mostrar un proveedor   
+    public mostrarUnproveedor( posicion:number):void{
+
+        console.log(this.listaProveedores[posicion]);
             }
         }    
 
