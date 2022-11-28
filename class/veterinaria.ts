@@ -1,21 +1,19 @@
-import { crearNumeroAleatoreo } from "/helpers.ts"
+import{crearNumeroAleatoreo,serVIP} from '../helpers';
 import * as ReadlineSync from "readline-sync";
+import Cliente from "./Cliente"
+import Mascota from './Mascota';
 
 interface DatoRed{
     altaCliente():void;
     modificarCliente(posicion:number):void;
     bajaCliente(posicion: number):void;
 }
-
-
-export default class veterinaria implements DatoRed{
+export default class Veterinaria implements DatoRed{
     private idVeterinaria: number;
     private nombre: string;
     private direccion: string;
-    private listaClientes: Array<cliente>;
-
-
-    public constructor(idVeterinaria:number, nombre:string, direccion:string, listaClientes: Array<cliente>){
+    private listaClientes: Array<Cliente>;
+    public constructor(idVeterinaria:number, nombre:string, direccion:string, listaClientes: Array<Cliente>){
         this.idVeterinaria= idVeterinaria;
         this.nombre=nombre;
         this.direccion= direccion;
@@ -30,59 +28,62 @@ export default class veterinaria implements DatoRed{
     public getdireccion():string{
         return this.direccion;
     }
-    
-    public getlistaClientes(): Array<cliente>{
+    public getlistaClientes(): Array<Cliente>{
         return this.listaClientes
     }
-
-    // funcion dar alta un cliente
+    // Métdodo para dar alta un cliente
     public altaCliente(): void{
-
-        let idCliente:number = crearNumeroAleatoreo(this.listaClientes.length)
+        let idCliente:number = crearNumeroAleatoreo(10000)
         let i:number=0;
-        let aux:number=0;
-        for ( i=0; i< this.listaClientes.length; i++) {
+                for ( i=0; i< this.listaClientes.length; i++) {
             if ( this.listaClientes[i].getidCliente() === idCliente){
-                aux= crearNumeroAleatoreo(this.listaClientes.length);
+                idCliente= crearNumeroAleatoreo(10000);
                 i=0;
-                    } else{
-                aux=idCliente;
-            }
-            idCliente=aux;
-                }    
-
-        let nombre:string = ReadlineSync.question("Ingrese el nombre: ");
-        let direccion:string = ReadlineSync.question("Ingrese la direccion: ");
-                  
-    let nuevoCliente : cliente = new cliente (idCliente, nombre,direccion);
-        ​            
-            this.listaClientes.push(nuevoCliente);
+                    }
                 }
-            
-                
-    ​
-    public bajaCliente(posicion: number) : void {​
-        
+        let nombre:string = ReadlineSync.question("Ingrese el nombre: ");
+        let telefono:number = ReadlineSync.questionInt("Ingrese el telefono: ");
+        let listaMascota:Array<Mascota>=[];
+        let visitas:number= 1;
+        let clienteVIP:boolean=serVIP();
+        let nuevoCliente : Cliente = new Cliente (idCliente, nombre,telefono,visitas,clienteVIP,listaMascota);
+        ​
+        this.listaClientes.push(nuevoCliente);
+                }  ;
+        //Método dar de baja un cliente
+    ​   public bajaCliente(posicion: number) : void {
               this.listaClientes.splice(posicion,1);
-        
-      } 
-             
-    ​
+      }
+    ​//Método modificar un cliente
     public modificarCliente(posicion:number): void{
-       
-        if (posicion === this.listaClientes[posicion].getidCliente()){
-            let idVeterinaria:number= this.listaClientes[posicion].getidVeterinaria();
+            let idCliente:number= this.listaClientes[posicion].getidCliente();
             let nombre:string = ReadlineSync.question("Ingrese el nombre nuevo: ");
-            let direccion:string = ReadlineSync.question("Ingrese la nueva direccion: ");
-       ​
-        let clienteActualizado : cliente = new cliente((Number(idCliente)),nombre, direccion);
+            let telefono: number= ReadlineSync.questionInt("Ingrese el nuevo telefono: ");
+       ​     let listaMascota:Array<Mascota>=[];
+            let visita:number= this.listaClientes[posicion].getvisitas();
+            let clienteVIP: boolean= serVIP();
+            let clienteActualizado : Cliente = new Cliente(idCliente,nombre, telefono,visita,clienteVIP,listaMascota);
     ​
         delete this.listaClientes[posicion];
-        this.listaClientes[posicion] = clienteActualizado;}
-    }
-            
+        this.listaClientes[posicion] = clienteActualizado;
+    };
+// Método mostrar un cliente
         public mostrarUnCliente( posicion:number):void{
-    
             console.log(this.listaClientes[posicion]);
                 }
-            }  
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
