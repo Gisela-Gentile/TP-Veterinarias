@@ -67,10 +67,10 @@ export default class Veterinaria implements DatoRed{
         this.listaClientes[posicion] = clienteActualizado;
     };
 // Método mostrar un cliente
-        public mostrarUnCliente( posicion:number):void{
-            console.log(this.listaClientes[posicion]);
-                }
-        
+public mostrarUnCliente( posicion:number):void{
+    console.log(this.listaClientes[posicion]);
+        }
+
 
 
 
