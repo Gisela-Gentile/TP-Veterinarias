@@ -2,6 +2,8 @@ import * as ReadlineSync from "readline-sync";
 import{crearNumeroAleatoreo} from '../helpers';
 import Veterinaria from "./Veterinaria"
 import Proveedor from "./Proveedor"
+import Cliente from "./Cliente";
+
 
 interface DatoRed{
     altaVeterinaria():void;
@@ -57,8 +59,9 @@ export default class RedVeterinaria implements DatoRed{
         }
            } 
     let nombre:string = ReadlineSync.question("Ingrese el nombre: ");
-    let direccion:string = ReadlineSync.question("Ingrese la direccion: ");           
-let nuevaVeterinaria : Veterinaria = new Veterinaria(idVeterinaria, nombre,direccion);
+    let direccion:string = ReadlineSync.question("Ingrese la direccion: ");     
+    let listaClientes:Array<Cliente> = [];
+let nuevaVeterinaria : Veterinaria = new Veterinaria(idVeterinaria, nombre,direccion, listaClientes);
     ​
         //inserto el elemento de tipo Veterinaria en el arreglo recibido        
         this.listaSucursales.push(nuevaVeterinaria);
@@ -79,8 +82,9 @@ public modificarVeterinaria(posicion:number): void{
         let idVeterinaria:number= this.listaSucursales[posicion].getidVeterinaria();
         let nombre:string = ReadlineSync.question("Ingrese el nombre nuevo: ");
         let direccion:string = ReadlineSync.question("Ingrese la nueva direccion: ");
-   ​
-    let veterinariaActualizada : Veterinaria = new Veterinaria(idVeterinaria,nombre, direccion);
+        let listaClientes: Array<Cliente>= []
+   ​// ver lo de la lista cliente como se carga
+    let veterinariaActualizada : Veterinaria = new Veterinaria(idVeterinaria,nombre, direccion,listaClientes);
 ​
     delete this.listaSucursales[posicion];
     this.listaSucursales[posicion] = veterinariaActualizada;
