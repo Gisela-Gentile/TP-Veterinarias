@@ -2,6 +2,7 @@ import{crearNumeroAleatoreo,registrarVisitas} from '../helpers';
 import * as ReadlineSync from "readline-sync";
 import Cliente from "./Cliente"
 import Mascota from './Mascota';
+
 interface DatoRed{
     altaCliente():void;
     modificarCliente(posicion:number):void;
