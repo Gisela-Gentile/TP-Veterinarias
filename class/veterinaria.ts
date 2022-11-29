@@ -70,4 +70,4 @@ export default class Veterinaria implements DatoRed{
         public mostrarUnCliente( posicion:number):void{
             console.log(this.listaClientes[posicion]);
                 }
-            }s
+            }
