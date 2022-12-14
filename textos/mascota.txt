@@ -1,1 +1,1 @@
-12,Coco,perro,perro;6,Pepe,loro,exótica
+6,Coco,perro;12,Pepe,loro

@@ -7,168 +7,161 @@ import GestorDeArchivos from "./class/GestorDeArchivos";
 import * as ReadlineSync from "readline-sync";
 
 export function crearNumeroAleatoreo(max:number){
-return Math.floor(Math.random()*max)
-}
-export function registrarVisitas(visitas:number): number {
-    
-    return visitas+=1
-}
-
-export function determinarEspecie (tipo:string) :string{
-      
-    if (tipo.toLowerCase() === "gato"){
-      return  tipo = "gato";
-    }    
-    else if (tipo.toLowerCase() === "perro"){
-      return tipo = "perro";
-            }
-
-    else{
-     return tipo ="exótica";
-    }
-}
-// export function serVIP():boolean{
-//     let visitas:number= this.getvisitas
-//     let clienteVIP:boolean=false
-//     if( visitas >5){
-//      return clienteVIP=true
-//     }else{
-//      return clienteVIP=false
-//     }};
-export function cargarVeterinaria(veterinaria:string, arrayVeterinaria: Array<Veterinaria>) : void{
+return Math.floor(Math.random()*max);
+};
+export function hacerLinea():void{
+    let linea:string=("-");
+    for (let i:number=0; i<100;i++){
+        linea+="-";
+    };
+    console.log(linea);
+};
+export function cargarVeterinaria(veterinaria:string, arrayVeterinaria: Array<Veterinaria>,listaClientes:Array<Cliente>) : void{
         ​
-            let propiedadVeterinaria : string[] = veterinaria.split(',');
-            let idVeterinaria: string = propiedadVeterinaria[0];
+            let propiedadVeterinaria : string[] = veterinaria.split(','); 
+            let idVeterinaria:string= propiedadVeterinaria[0]          
             let nombre: string = propiedadVeterinaria[1];
             let direccion:string = propiedadVeterinaria[2];
-            let listaClientes:Array<Cliente>=[];
-                         
-            let nuevaVeterinaria:Veterinaria = new Veterinaria(Number(idVeterinaria),nombre,direccion,listaClientes);
+                                     
+            let nuevaVeterinaria:Veterinaria = new Veterinaria(nombre,direccion,listaClientes,Number(idVeterinaria));
         ​        arrayVeterinaria.push(nuevaVeterinaria);
-        }
+};
 export const obtenerPosicionVeterinaria = (arrayVeterinaria: Array<Veterinaria>): number=>{
-        let esta: boolean=false
-        let posicion: number=0
-        let ubicacion:number=0
-        let id:number= ReadlineSync.questionInt("Ingrese el Id de la Veterinaria : ");
-        for (let i:number=0; i< arrayVeterinaria.length; i++){
-    
-            if ( arrayVeterinaria[i].getidVeterinaria() === Number(id)){
-                esta= true;
-                ubicacion=i;
-            } 
-        }
-         if (esta== true){
-            posicion= ubicacion;
-         }else{
-            throw new Error ("El Id no existe");}
-         
-         return posicion;
-    }
+    let esta: boolean=false;
+    let posicion: number=0;
+    let ubicacion:number=0;
+    let id:number= ReadlineSync.questionInt("Ingrese el Id de la Veterinaria : ");
+    for (let i:number=0; i< arrayVeterinaria.length; i++){
+
+        if ( arrayVeterinaria[i].getIdVeterinaria() === Number(id)){
+            esta= true;
+            ubicacion=i;
+        };
+    };
+    if (esta== true){
+        posicion= ubicacion;
+    }else{
+        throw new Error ("El Id no existe");
+    };         
+    return posicion;
+};
  export function cargarProveedor(proveedor:string, arrayProveedor: Array<Proveedor>) : void{
         ​
-            let propiedadProveedor : string[] = proveedor.split(',');
-            let idProveedor: string = propiedadProveedor[0];
-            let nombre: string = propiedadProveedor[1];
-            let telefono:string = propiedadProveedor[2];
-                                     
-            let nuevoProveedor:Proveedor = new Proveedor (Number(idProveedor),nombre,Number(telefono));
-        ​        arrayProveedor.push(nuevoProveedor);
-        }
+    let propiedadProveedor : string[] = proveedor.split(',');
+    let numVeterinaria:string=propiedadProveedor[0];
+    let idProveedor:string=propiedadProveedor[1]
+    let nombre: string = propiedadProveedor[2];
+    let telefono:string = propiedadProveedor[3];
+                                
+    let nuevoProveedor:Proveedor = new Proveedor (Number(numVeterinaria),nombre,Number(telefono),Number(idProveedor));
+​    arrayProveedor.push(nuevoProveedor);
+};
 export const obtenerPosicionProveedor = (arrayProveedor: Array<Proveedor>): number=>{
-        let esta: boolean=false
-        let posicion: number=0
-        let ubicacion:number=0
-        let id:number= ReadlineSync.questionInt("Ingrese el Id del proveedor : ");
-        for (let i:number=0; i< arrayProveedor.length; i++){
-    
-            if ( arrayProveedor[i].getidProveedor() === Number(id)){
-                esta= true;
-                ubicacion=i;
-            } 
-        }
-         if (esta== true){
-            posicion= ubicacion;
-         }else{
-            throw new Error ("El Id no existe");}
-         
-         return posicion;
-    }
+    let esta: boolean=false;
+    let posicion: number=0;
+    let ubicacion:number=0;
+    let id:number= ReadlineSync.questionInt("Ingrese el Id del proveedor : ");
+    for (let i:number=0; i< arrayProveedor.length; i++){
 
-export function cargarCliente(cliente:string, arrayCliente: Array<Cliente>) : void{
+        if ( arrayProveedor[i].getIdProveedor() === Number(id)){
+            esta= true;
+            ubicacion=i;
+        };
+    };
+    if (esta== true){
+        posicion= ubicacion;
+    }else{
+        throw new Error ("El Id no existe");
+    };
+    return posicion;
+    };
+export function cargarCliente(cliente:string, arrayCliente: Array<Cliente>,listaDeMascotas:Array<Mascota>) : void{
         ​
-            let propiedadCliente : string[] = cliente.split(',');
-            let idCliente: string = propiedadCliente[0];
-            let nombre: string = propiedadCliente[1];
-            let telefono:string = propiedadCliente[2];
-            let visitas:string= propiedadCliente[3];
-            let clienteVIP:string= propiedadCliente[4];
-            let listaMascotas:Array<Mascota>=[];
-                         
-            let nuevoCliente:Cliente = new Cliente (Number(idCliente),nombre,Number(telefono),Number(visitas), Boolean(clienteVIP),listaMascotas);
-        ​        arrayCliente.push(nuevoCliente);
-        }
-export const obtenerPosicionCliente = (arrayCliente: Array<Cliente>): number=>{
-        let esta: boolean=false
-        let posicion: number=0
-        let ubicacion:number=0
-        let id:number= ReadlineSync.questionInt("Ingrese el Id del cliente : ");
-        for (let i:number=0; i< arrayCliente.length; i++){
+    let propiedadCliente : string[] = cliente.split(',');
+    let numVeterinaria:string=propiedadCliente[0];
+    let idCliente:string = propiedadCliente[1];
+    let nombre: string = propiedadCliente[2];
+    let telefono:string = propiedadCliente[3];
+    let visitas:string= propiedadCliente[4];         
     
-            if ( arrayCliente[i].getidCliente() === Number(id)){
-                esta= true;
-                ubicacion=i;
-            } 
-        }
-         if (esta== true){
-            posicion= ubicacion;
-         }else{
-            throw new Error ("El Id no existe");}
-         
-         return posicion;
-    }
+    let nuevoCliente:Cliente = new Cliente (Number(numVeterinaria),nombre,Number(telefono),Number(visitas),listaDeMascotas,Number(idCliente));
+​       
+    arrayCliente.push(nuevoCliente);
+};
+export const obtenerPosicionCliente = (arrayCliente: Array<Cliente>): number=>{
+    let esta: boolean=false;
+    let posicion: number=0;
+    let ubicacion:number=0;
+    let id:number= ReadlineSync.questionInt("Ingrese el Id del cliente : ");
+    for (let i:number=0; i< arrayCliente.length; i++){
+
+        if ( arrayCliente[i].getIdCliente() === Number(id)){
+            esta= true;
+            ubicacion=i;
+        } ;
+    };
+        if (esta== true){
+        posicion= ubicacion;
+        }else{
+        throw new Error ("El Id no existe");
+        };
+        return posicion;
+};
 export function cargarMascotas(mascota:string, arrayMascotas: Array<Mascota>) : void{
         ​
-            let propiedadMascota : string[] = mascota.split(',');
-            let idMascota: string = propiedadMascota[0];
-            let nombre: string = propiedadMascota[1];
-            let clase:string = propiedadMascota[2];
-            let especie:string= propiedadMascota[3]
-            
-                         
-            let nuevaMascota:Mascota = new Mascota(Number(idMascota),nombre,clase,especie);
-        ​        arrayMascotas.push(nuevaMascota);
-        }
-   export const obtenerPosicionMascota = (arrayMascota: Array<Mascota>): number=>{
-        let esta: boolean=false
-        let posicion: number=0
-        let ubicacion:number=0
-        let id:number= ReadlineSync.questionInt("Ingrese el Id de la mascota: ");
-        let nombre: string= ReadlineSync.question("Ingrese el nombre de la mascota: ");
-        for (let i:number=0; i< arrayMascota.length; i++){
-    
-            if ( arrayMascota[i].getidMascota() === Number(id) && arrayMascota[i].getnombre().toLowerCase()=== nombre.toLowerCase()){
-                esta= true;
-                ubicacion=i;
-            } 
-        }
-         if (esta== true){
-            posicion= ubicacion;
-         }else{
-            throw new Error ("El Id no existe");}
-         
-         return posicion;
-    }
+    let propiedadMascota : string[] = mascota.split(',');
+    let idMascota: string = propiedadMascota[0];
+    let nombre: string = propiedadMascota[1];
+    let clase:string = propiedadMascota[2];                       
+                    
+    let nuevaMascota:Mascota = new Mascota(Number(idMascota),nombre,clase);
+​    arrayMascotas.push(nuevaMascota);
+};
+export const obtenerPosicionMascota = (arrayMascota: Array<Mascota>): number=>{
+    let esta: boolean=false;
+    let posicion: number=0;
+    let ubicacion:number=0;
+    let id:number= ReadlineSync.questionInt("Ingrese el Id de la mascota: ");
+    let nombre: string= ReadlineSync.question("Ingrese el nombre de la mascota: ");
+    for (let i:number=0; i< arrayMascota.length; i++){    
+        if ( arrayMascota[i].getIdMascota() === Number(id) && arrayMascota[i].getNombre().toLowerCase()=== nombre.toLowerCase()){
+            esta= true;
+            ubicacion=i;
+        };
+    };
+    if (esta== true){
+        posicion= ubicacion;
+    }else{
+        throw new Error ("El Id no existe");
+    };
+    return posicion;
+};
    
     //Iniciar programa
+// Cargar mascota
+let datosMascotas: GestorDeArchivos = new GestorDeArchivos("./textos/mascota.txt");
+let listaDeMacotas: Array<Mascota>=[];
+for (let i:number = 0; i < datosMascotas.getArregloString().length; i++){
+
+    cargarMascotas(datosMascotas.getArregloString()[i], listaDeMacotas);
+};
+// Cargar cliente
+let datosClientes: GestorDeArchivos = new GestorDeArchivos("./textos/cliente.txt");
+let listaDeClientes: Array<Cliente>=[];
+
+for (let i:number = 0; i < datosClientes.getArregloString().length; i++){
+
+    cargarCliente(datosClientes.getArregloString()[i], listaDeClientes,listaDeMacotas);
+    
+};
 //cargar datos veterinaria
  let datosVeterinaria: GestorDeArchivos = new GestorDeArchivos("./textos/veterinaria.txt");
- ​let listaDeVeterinarias: Array<Veterinaria>=[];
+ ​let listaDeVeterinarias: Array<Veterinaria>=[];  
 
 for (let i : number= 0; i < datosVeterinaria.getArregloString().length; i++){
 
-    cargarVeterinaria(datosVeterinaria.getArregloString()[i], listaDeVeterinarias);
-}
+    cargarVeterinaria(datosVeterinaria.getArregloString()[i], listaDeVeterinarias,listaDeClientes);
+};
 //cargar datos proveedor
 let datosProveedor: GestorDeArchivos = new GestorDeArchivos("./textos/proveedor.txt");
 let listaDeProveedores: Array<Proveedor>=[];
@@ -176,315 +169,344 @@ let listaDeProveedores: Array<Proveedor>=[];
 for (let i:number = 0; i < datosProveedor.getArregloString().length; i++){
 
     cargarProveedor(datosProveedor.getArregloString()[i], listaDeProveedores);
-}
-// Cargar cliente
-let datosClientes: GestorDeArchivos = new GestorDeArchivos("./textos/cliente.txt");
-let listaDeClientes: Array<Cliente>=[];
+};
 
-for (let i:number = 0; i < datosClientes.getArregloString().length; i++){
-
-    cargarCliente(datosClientes.getArregloString()[i], listaDeClientes);
-}
-// Cargar mascota
-let datosMascotas: GestorDeArchivos = new GestorDeArchivos("./textos/mascota.txt");
-let listaDeMacotas: Array<Mascota>=[];
-
-for (let i:number = 0; i < datosMascotas.getArregloString().length; i++){
-
-    cargarMascotas(datosMascotas.getArregloString()[i], listaDeMacotas);
-}
-
-let proveedor: RedVeterinaria = new RedVeterinaria(listaDeProveedores,listaDeVeterinarias);    
-let veterinaria: RedVeterinaria = new RedVeterinaria(listaDeProveedores, listaDeVeterinarias);
-let cliente: Veterinaria= new Veterinaria(0,"","",listaDeClientes);
-let mascota: Cliente= new Cliente(0,"",0,1, false,listaDeMacotas);
+let redVeterinaria: RedVeterinaria= new RedVeterinaria(listaDeProveedores,listaDeVeterinarias);
 
 export const consultarOtraOpcion1= ():void =>{
-        console.log("Desea realizar otra consulta sobre veterinarias");
-        let consulta:string = ReadlineSync.question("SI/NO?:  ");
-        if(consulta.toLowerCase()=="si"){
-            mostrarMenuVeterinaria();
-        }
+    console.log("Desea realizar otra consulta sobre veterinarias");
+    let consulta:string = ReadlineSync.question("SI/NO?:  ");
+    
+    if(consulta.toLowerCase()=="si"){
+        mostrarMenuVeterinaria();
+        
     };
+};
 export const mostrarMenuVeterinaria=():void=>{
-        let menuVeterinaria:number;
-        console.log("MENU");
-        console.log("1- Alta");
-        console.log("2- Modificar"); 
-        console.log("3- Baja");
-        console.log("4- Consultar");
-        console.log("5- Mostrar listado")
-       
-         menuVeterinaria=ReadlineSync.questionInt("Ingrese el numero de opcion: ");
-                switch(menuVeterinaria){            
-                case 1:
-                console.log("Dar de alta una veterinaria");
-                veterinaria.altaVeterinaria();
-                consultarOtraOpcion1();
-                           
-                break;
-                case 2:
-                    try {
-                    console.log("Modicar veterinaria");
-                    let posicion:number= obtenerPosicionVeterinaria(listaDeVeterinarias);
-                    veterinaria.modificarVeterinaria(posicion);
-                    consultarOtraOpcion1();
-                     } catch (error) {
-                        console.log ("Ocurrió un error: " + error.message);
-                        consultarOtraOpcion1();
-                    }
-                    break;
-                case 3:
-                    try{
-                    console.log("Dar de baja");
-                    let ubicacion:number= obtenerPosicionVeterinaria(listaDeVeterinarias);
-                    veterinaria.bajaVeterinaria(ubicacion);
-                    consultarOtraOpcion1();}
-                    catch(error){
-                        console.log("Ocurrió un error: " + error.message);
-                        consultarOtraOpcion1();
-                    }
-                    break;
-                 case 4:
-                    try{
-                    console.log("consultar por una veterinaria");
-                    let posicion1:number= obtenerPosicionVeterinaria(listaDeVeterinarias);
-                    veterinaria.mostrarUnaVeterinaria(posicion1);
-                    consultarOtraOpcion1();}
-                    catch(error){
-                        console.log("Ocurrió un error: " + error.message);
-                        consultarOtraOpcion1();
-                    }
-                    break;
-                 case 5:
-                    console.log("Listado de veterinarias");
-                    console.log(listaDeVeterinarias);
-                    consultarOtraOpcion1();
-                    break;
-                }
-        
-    };
-export const consultarOtraOpcion2= ():void =>{
-        console.log("Desea realizar otra consulta sobre proveedores");
-        let consulta:string = ReadlineSync.question("SI/NO?:  ");
-        if(consulta.toLowerCase()=="si"){
-            mostrarMenuProveedor();
-        }
-    }  
-export const mostrarMenuProveedor=():void=>{
-        let menuProveedor:number;
-        console.log("MENU");
-        console.log("1- Alta");
-        console.log("2- Modificar"); 
-        console.log("3- Baja");
-        console.log("4- Consultar");
-        console.log("5- Mostrar listado")
-       
-         menuProveedor=ReadlineSync.questionInt("Ingrese el numero de opcion: ");
-        
-         switch(menuProveedor){  
+    let menuVeterinaria:number;
+    
+    console.log("MENU VETERINARIA");
+    console.log("1- Alta");
+    console.log("2- Modificar"); 
+    console.log("3- Baja");
+    console.log("4- Consultar");
+    console.log("5- Mostrar listado");
+    console.log("6- Mostrar clientes de una veterinaria");
+    console.log("7- Mostrar proveedores de una veterinaria");
+    
+    menuVeterinaria=ReadlineSync.questionInt("Ingrese el numero de opcion: ");
+        switch(menuVeterinaria){            
             case 1:
-                console.log("Dar de alta un proveedor");
-                proveedor.altaProveedor();
-                consultarOtraOpcion2();                      
+                hacerLinea();
+                console.log("Dar de alta una veterinaria");
+                redVeterinaria.altaVeterinaria(listaDeClientes);
+                hacerLinea();
+                consultarOtraOpcion1();                       
             break;
             case 2:
+                hacerLinea();
                 try {
-                console.log("Modicar proveedor");
-                let posicion:number= obtenerPosicionProveedor(listaDeProveedores);
-                proveedor.modificarProveedor(posicion);
-                consultarOtraOpcion2();
-                 } catch (error) {
-                    console.log ("Ocurrió un error: " + error.message);
-                    consultarOtraOpcion2();
+                console.log("Modicar veterinaria");
+                let posicion:number= obtenerPosicionVeterinaria(listaDeVeterinarias);
+                redVeterinaria.modificarVeterinaria(posicion,listaDeClientes);
+                hacerLinea();
+                consultarOtraOpcion1();                
+                } catch (error) {
+                console.log ("Ocurrió un error: " + error.message);
+                consultarOtraOpcion1();                        
                 }
-                break;
+            break;
             case 3:
-                try{
+                hacerLinea();
+                try{                
                 console.log("Dar de baja");
-                let ubicacion:number= obtenerPosicionProveedor(listaDeProveedores);
-                proveedor.bajaProveedor(ubicacion);
-                consultarOtraOpcion2();}
+                let ubicacion:number= obtenerPosicionVeterinaria(listaDeVeterinarias);
+                redVeterinaria.bajaVeterinaria(ubicacion);
+                hacerLinea();
+                consultarOtraOpcion1();                
+                    }                    
                 catch(error){
                     console.log("Ocurrió un error: " + error.message);
-                    consultarOtraOpcion2();
+                    consultarOtraOpcion1();                
                 }
-                break;
-             case 4:
-                try{
-                console.log("consultar por un proveedor");
-                let posicion1:number= obtenerPosicionProveedor(listaDeProveedores);
-                proveedor.mostrarUnproveedor(posicion1);
+            break;
+            case 4:
+                hacerLinea();
+                console.log("consultar por una veterinaria");
+                redVeterinaria.mostrarUnaVeterinaria();
+                consultarOtraOpcion1();
+                hacerLinea();                    
+            break;
+            case 5:
+                hacerLinea();
+                console.log("Listado de veterinarias");
+                redVeterinaria.mostrarListadoVeterinaria();                
+                consultarOtraOpcion1();
+            break;
+            case 6:
+                hacerLinea();
+                console.log("Mostrar clientes de una veterinaria en particular");
+                hacerLinea();
+                listaDeVeterinarias[0].mostrarClienteVeterinaria();
+                consultarOtraOpcion1();
+            break;
+            case 7:
+                hacerLinea();
+                console.log("Mostrar proveedores de una veterinaria en particular");
+                redVeterinaria.mostrarProveedorVeterinaria();
+                consultarOtraOpcion1();
+            break;
+            };
+
+};
+export const consultarOtraOpcion2= ():void =>{
+    console.log("Desea realizar otra consulta sobre proveedores");
+    let consulta:string = ReadlineSync.question("SI/NO?:  ");    
+    if(consulta.toLowerCase()=="si"){
+        mostrarMenuProveedor();        
+    };
+};  
+export const mostrarMenuProveedor=():void=>{
+    let menuProveedor:number;
+    hacerLinea();
+    console.log("MENU PROVEEDORES");
+    console.log("1- Alta");
+    console.log("2- Modificar"); 
+    console.log("3- Baja");
+    console.log("4- Consultar");
+    console.log("5- Mostrar listado");
+    
+    menuProveedor=ReadlineSync.questionInt("Ingrese el numero de opcion: ");
+    
+    switch(menuProveedor){  
+        case 1:
+            hacerLinea();
+            console.log("Dar de alta un proveedor");
+            redVeterinaria.altaProveedor(listaDeVeterinarias);
+            hacerLinea();
+            consultarOtraOpcion2();                      
+        break;
+        case 2:
+            hacerLinea();
+            try {
+            console.log("Modicar proveedor");
+            let posicion:number= obtenerPosicionProveedor(listaDeProveedores);
+            redVeterinaria.modificarProveedor(posicion);
+            hacerLinea();
+            consultarOtraOpcion2();
+                } catch (error) {
+                console.log ("Ocurrió un error: " + error.message);
                 consultarOtraOpcion2();
-                 }catch(error){
-                    console.log("Ocurrió un error: " + error.message);
-                    consultarOtraOpcion2();
-                }
-                break;
-             case 5:
-                console.log("Listado de proveedores");
-                console.log(listaDeProveedores);
+            };
+        break;
+        case 3:
+            hacerLinea();
+            try{
+            console.log("Dar de baja");
+            let ubicacion:number= obtenerPosicionProveedor(listaDeProveedores);
+            redVeterinaria.bajaProveedor(ubicacion);
+            hacerLinea();
+            consultarOtraOpcion2();}
+            catch(error){
+                console.log("Ocurrió un error: " + error.message);
                 consultarOtraOpcion2();
-                break;
-            }          
+            };
+        break;
+        case 4:
+            hacerLinea();
+            console.log("consultar por un proveedor");
+            redVeterinaria.mostrarUnProveedor();
+            consultarOtraOpcion2();               
+        break;
+        case 5:
+            hacerLinea();
+            console.log("Listado de proveedores");
+            redVeterinaria.mostrarListadoProveedores();
+            consultarOtraOpcion2();
+        break;
+        };        
 };
 export const consultarOtraOpcion3= ():void =>{
     console.log("Desea realizar otra consulta sobre clientes");
-    let consulta:string = ReadlineSync.question("SI/NO?:  ");
+    let consulta:string = ReadlineSync.question("SI/NO?:  ");    
     if(consulta.toLowerCase()=="si"){
-        mostrarMenuCliente();
-    }
-}
+        mostrarMenuCliente();        
+    };
+};
 export const mostrarMenuCliente=():void=>{
     let menuCliente:number;
-    console.log("MENU");
+    hacerLinea();
+    console.log("MENU CLIENTES");
     console.log("1- Alta");
     console.log("2- Modificar"); 
     console.log("3- Baja");
     console.log("4- Consultar");
-    console.log("5- Mostrar listado")
+    console.log("5- Mostrar listado");
     console.log("6- Registrar visita");
-   
+    console.log("7- Mostrar mascotas de un cliente");
+
     menuCliente=ReadlineSync.questionInt("Ingrese el numero de opcion: ");
-    
+
     switch(menuCliente){  
         case 1:
+            hacerLinea();
             console.log("Dar de alta un cliente");
-            cliente.altaCliente();
+            listaDeVeterinarias[0].altaCliente(listaDeMacotas,listaDeVeterinarias);
+            hacerLinea();
             consultarOtraOpcion3();        
         break;
         case 2:
-                try {
-                console.log("Modicar cliente");
-                let posicion:number= obtenerPosicionCliente(listaDeClientes);
-                cliente.modificarCliente(posicion);
-                consultarOtraOpcion3();
-                 } catch (error) {
-                    console.log ("Ocurrió un error: " + error.message);
-                    consultarOtraOpcion3();
+            hacerLinea();
+            try {
+            console.log("Modicar cliente");
+            let posicion:number= obtenerPosicionCliente(listaDeClientes);
+            listaDeVeterinarias[0].modificarCliente(posicion,listaDeMacotas);
+            hacerLinea();
+            consultarOtraOpcion3();
+                } catch (error) {
+            console.log ("Ocurrió un error: " + error.message);
+            consultarOtraOpcion3();
                 }
         break;
         case 3:
-                try{
-                console.log("Dar de baja");
-                let ubicacion:number= obtenerPosicionCliente(listaDeClientes);
-                cliente.bajaCliente(ubicacion);
-                consultarOtraOpcion3();}
-                catch(error){
-                    console.log("Ocurrió un error: " + error.message);
-                    consultarOtraOpcion3();
-                }
+            hacerLinea();
+            try{
+            console.log("Dar de baja");
+            let ubicacion:number= obtenerPosicionCliente(listaDeClientes);
+            listaDeVeterinarias[0].bajaCliente(ubicacion);
+            hacerLinea();
+            consultarOtraOpcion3();}
+            catch(error){
+            console.log("Ocurrió un error: " + error.message);
+            consultarOtraOpcion3();
+            };
         break;
         case 4:
-                try{
-                console.log("consultar por un Cliente");
-                let posicion1:number= obtenerPosicionCliente(listaDeClientes);
-                cliente.mostrarUnCliente(posicion1);
-                consultarOtraOpcion3();}
-                catch(error){
-                    console.log("Ocurrió un error: " + error.message);
-                    consultarOtraOpcion3();
-                }
+            hacerLinea();
+            console.log("consultar por un Cliente");
+            listaDeVeterinarias[0].mostrarUnCliente();
+            consultarOtraOpcion3();
+
         break;
         case 5:
-                console.log("Listado de clientes");
-                console.log(listaDeClientes);
-                consultarOtraOpcion3();
+            hacerLinea();
+            console.log("Listado de clientes");
+            listaDeVeterinarias[0].mostrarListadoCliente();
+            consultarOtraOpcion3();
         break;
         case 6:
-                try{
-                console.log("Registrar Visita");
-                let posicion3:number=obtenerPosicionCliente(listaDeClientes);
-                cliente.asignarVisita(posicion3);          
-                 consultarOtraOpcion3();}
-                catch(error){
-                    console.log("Ocurrió un error: " + error.message);
-                    consultarOtraOpcion3();
-                }
+            hacerLinea();
+            try{
+            console.log("Registrar visita");
+            let posicion4:number= obtenerPosicionCliente(listaDeClientes);
+            listaDeClientes[posicion4].asignarVisita();
+            console.log("Se regitro la visita");
+            hacerLinea();
+            consultarOtraOpcion3();}
+            catch(error){
+            console.log("Ocurrió un error: " + error.message);
+            consultarOtraOpcion3();
+            };        
         break;
-            };                
+        case 7: 
+            hacerLinea();                      
+            console.log("Mostrar mascotas de un cliente");
+            listaDeClientes[0].mostrarMascotaCliente();
+            consultarOtraOpcion3();
+        break; 
+    };                
 };
 export const consultarOtraOpcion4= ():void =>{
     console.log("Desea realizar otra consulta sobre mascotas");
-    let consulta:string = ReadlineSync.question("SI/NO?:  ");
+    let consulta:string = ReadlineSync.question("SI/NO?:  ");    
     if(consulta.toLowerCase()=="si"){
         mostrarMenuMascota();
-    }
-}
+    };
+};
 export const mostrarMenuMascota=():void=>{
     let menuMascota:number;
-    console.log("MENU");
+    hacerLinea();
+    console.log("MENU MASCOTAS");
     console.log("1- Alta");
     console.log("2- Modificar"); 
     console.log("3- Baja");
     console.log("4- Consultar");
-    console.log("5- Mostrar listado")
+    console.log("5- Mostrar listado");
    
      menuMascota=ReadlineSync.questionInt("Ingrese el numero de opcion: ");
      switch(menuMascota){
         case 1:
-              console.log("Dar de alta una mascota");
-              mascota.altaMascota();
-              consultarOtraOpcion4();         
-          break;
-          case 2:
-              try {
-              console.log("Modicar mascota");
-              let posicion:number= obtenerPosicionMascota(listaDeMacotas);
-              mascota.modificarMascota(posicion);
-              consultarOtraOpcion4();
-               } catch (error) {
-                  console.log ("Ocurrió un error: " + error.message);
-                  consultarOtraOpcion4();
-              }
-              break;
-          case 3:
-              try{
-              console.log("Dar de baja");
-              let ubicacion:number= obtenerPosicionMascota(listaDeMacotas);
-              mascota.bajaMascota(ubicacion);
-              consultarOtraOpcion4();}
-              catch(error){
-                  console.log("Ocurrió un error: " + error.message);
-                  consultarOtraOpcion4();
-              }
-              break;
-           case 4:
-              try{
-              console.log("consultar por una mascota");
-              let posicion1:number= obtenerPosicionMascota(listaDeMacotas);
-              mascota.mostrarUnaMascota(posicion1);
-              consultarOtraOpcion4();}
-              catch(error){
-                  console.log("Ocurrió un error: " + error.message);
-                  consultarOtraOpcion4();
-              }
-              break;
-           case 5:
-              console.log("Listado de mascotas");
-              console.log(listaDeMacotas);
-              consultarOtraOpcion4();
-              break;}     
+            hacerLinea();
+            console.log("Dar de alta una mascota");
+            listaDeClientes[0].agregarMascotaCliente(listaDeClientes,listaDeMacotas);
+            hacerLinea();
+            consultarOtraOpcion4();         
+        break;
+        case 2:
+            hacerLinea();
+            try {
+            console.log("Modicar mascota");
+            let posicion:number= obtenerPosicionMascota(listaDeMacotas);
+            listaDeClientes[0].modificarMascota(posicion);
+            hacerLinea();
+            consultarOtraOpcion4();
+            } catch (error) {
+            console.log ("Ocurrió un error: " + error.message);
+            consultarOtraOpcion4();
+            };
+        break;
+        case 3:
+            hacerLinea();
+            try{
+            console.log("Dar de baja");
+            let ubicacion:number= obtenerPosicionMascota(listaDeMacotas);
+            listaDeClientes[0].bajaMascota(ubicacion);
+            hacerLinea();
+            consultarOtraOpcion4();}
+            catch(error){
+            console.log("Ocurrió un error: " + error.message);
+            consultarOtraOpcion4();
+            };
+        break;
+        case 4:
+            hacerLinea();
+            console.log("consultar por las mascota de un cliente")
+            listaDeClientes[0].mostrarUnaMascota();
+            consultarOtraOpcion4();            
+            break;
+        case 5:
+            hacerLinea();
+            console.log("Listado de mascotas");
+            listaDeClientes[0].mostrarListadoMascota();
+            consultarOtraOpcion4();
+        break;
+    };     
 };
 export const consultarOtraOpcion= ():void =>{
     console.log("Desea realizar otra consulta en el menu principal");
     let consulta:string = ReadlineSync.question("SI/NO?:  ");
+    hacerLinea();
     if(consulta.toLowerCase()=="si"){
         mostrarMenu();
-    }
-}
+        hacerLinea();
+    };
+};
 export const mostrarMenu=():void=>{
     let menu:number= 0;
+    hacerLinea();
+    redVeterinaria.mostrarDatosRed();
+    hacerLinea();
     console.log("MENU");
     console.log("1- Veterinarias");
     console.log("2- Proveedores"); 
     console.log("3- Clientes");
     console.log("4- Mascotas");
+
     menu= ReadlineSync.questionInt("Ingrese el numero de opcion: ");
     switch (menu){
          case 1:             
             mostrarMenuVeterinaria();
-            consultarOtraOpcion()
+            consultarOtraOpcion();
             break;
         case 2:
            mostrarMenuProveedor();
