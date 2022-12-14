@@ -1,0 +1,1 @@
+6,Coco,perro;12,Pepe,loro

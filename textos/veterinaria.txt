@@ -1,1 +1,1 @@
-1, Mascoteros ,Lequerica 123; 2, Las Vaquerias, Costa 567
+1,Mascoteros,Lequerica 123;2,Las Vaquerias,Costa 567
